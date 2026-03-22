@@ -4,3 +4,5 @@
 *.avi filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+# El video intro es pequeño (1.8MB), se commitea directamente sin LFS
+public/FINAL ANIMACION ESPACIO SEMILLAS.MP4 !filter !diff !merge -text
