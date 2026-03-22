@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Header from "./components/Header";
 import Sidebar, { sections } from "./components/Sidebar";
 import IntroScreen from "./components/IntroScreen";
-import { recordVisit, getVisitedSections } from "./lib/supabase";
+import { recordVisit, removeVisit, getVisitedSections } from "./lib/supabase";
 
 import Inicio from "./sections/Inicio";
 import VideoClases from "./sections/VideoClases";
@@ -55,6 +55,16 @@ export default function App() {
     loadVisited();
   }, []);
 
+  const handleToggleVisited = useCallback(async (sectionId) => {
+    if (visitedSections.includes(sectionId)) {
+      await removeVisit(sectionId);
+      setVisitedSections((prev) => prev.filter((s) => s !== sectionId));
+    } else {
+      await recordVisit(sectionId);
+      setVisitedSections((prev) => [...prev, sectionId]);
+    }
+  }, [visitedSections]);
+
   const handleSectionChange = useCallback(async (sectionId) => {
     setCurrentSection(sectionId);
     await recordVisit(sectionId);
@@ -92,6 +102,7 @@ export default function App() {
         currentSection={currentSection}
         onSectionChange={handleSectionChange}
         visitedSections={visitedSections}
+        onToggleVisited={handleToggleVisited}
       />
 
       <main className="md:ml-[280px] pt-[112px] min-h-screen">

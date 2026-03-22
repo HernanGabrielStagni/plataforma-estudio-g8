@@ -52,6 +52,7 @@ export default function Sidebar({
   currentSection,
   onSectionChange,
   visitedSections,
+  onToggleVisited,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -155,7 +156,14 @@ export default function Sidebar({
                         {section.label}
                       </span>
 
-                      <div className="flex-shrink-0">
+                      <button
+                        className="flex-shrink-0 p-0.5 rounded-full hover:scale-110 transition-transform"
+                        title={isVisited ? "Marcar como no visto" : "Marcar como visto"}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleVisited(section.id);
+                        }}
+                      >
                         {isVisited || isActive ? (
                           <motion.div
                             animate={isActive ? { scale: [1, 1.2, 1] } : { scale: 1 }}
@@ -172,7 +180,7 @@ export default function Sidebar({
                             strokeWidth={2}
                           />
                         )}
-                      </div>
+                      </button>
                     </motion.button>
                   </li>
                 );

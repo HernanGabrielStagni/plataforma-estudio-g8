@@ -43,6 +43,25 @@ export async function recordVisit(sectionName) {
   }
 }
 
+export async function removeVisit(sectionName) {
+  if (!supabase) {
+    const visits = JSON.parse(localStorage.getItem('visited_sections_g8') || '[]')
+    localStorage.setItem('visited_sections_g8', JSON.stringify(visits.filter(v => v !== sectionName)))
+    return
+  }
+
+  try {
+    const sessionId = getSessionId()
+    await supabase.from('student_progress').delete()
+      .eq('session_id', sessionId)
+      .eq('section_visited', `g8_${sectionName}`)
+  } catch (error) {
+    console.warn('Supabase error:', error.message)
+    const visits = JSON.parse(localStorage.getItem('visited_sections_g8') || '[]')
+    localStorage.setItem('visited_sections_g8', JSON.stringify(visits.filter(v => v !== sectionName)))
+  }
+}
+
 export async function getVisitedSections() {
   if (!supabase) {
     return JSON.parse(localStorage.getItem('visited_sections_g8') || '[]')

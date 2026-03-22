@@ -25,8 +25,8 @@ export default function Header({ visitedSections, totalSections = 7 }) {
           </div>
         </div>
 
-        {/* Center Title */}
-        <div className="text-center flex-1 px-4">
+        {/* Center Title + Progress */}
+        <div className="text-center flex-1 px-4 flex flex-col items-center gap-2">
           <h1
             className="text-white font-playfair text-base md:text-2xl lg:text-3xl font-black tracking-tight header-title-glow"
             style={{
@@ -38,20 +38,18 @@ export default function Header({ visitedSections, totalSections = 7 }) {
             <span className="text-dorado mx-1 opacity-90">·</span>{" "}
             <span className="block sm:inline">El Vínculo Roto y la Coraza</span>
           </h1>
-        </div>
-
-        {/* Progress */}
-        <div className="flex items-center gap-3 flex-shrink-0">
-          <span className="hidden md:block text-dorado-claro text-xs font-lato">
-            {visitedSections.length}/{totalSections} secciones
-          </span>
-          <div className="w-20 md:w-32 h-2.5 bg-verde-medio/50 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full progress-bar-animated rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            />
+          <div className="flex items-center gap-2">
+            <span className="text-dorado-claro text-xs font-lato">
+              {visitedSections.length}/{totalSections} secciones
+            </span>
+            <div className="w-28 md:w-48 h-2.5 bg-verde-medio/50 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full progress-bar-animated rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              />
+            </div>
           </div>
         </div>
       </div>
