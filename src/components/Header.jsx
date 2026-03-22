@@ -25,8 +25,8 @@ export default function Header({ visitedSections, totalSections = 7 }) {
           </div>
         </div>
 
-        {/* Center Title + Progress */}
-        <div className="text-center flex-1 px-4 flex flex-col items-center gap-2">
+        {/* Center Title */}
+        <div className="text-center flex-1 px-4">
           <h1
             className="text-white font-playfair text-base md:text-2xl lg:text-3xl font-black tracking-tight header-title-glow"
             style={{
@@ -38,20 +38,28 @@ export default function Header({ visitedSections, totalSections = 7 }) {
             <span className="text-dorado mx-1 opacity-90">·</span>{" "}
             <span className="block sm:inline">El Vínculo Roto y la Coraza</span>
           </h1>
-          <div className="flex items-center gap-2">
-            <span className="text-dorado-claro text-xs font-lato">
-              {visitedSections.length}/{totalSections} secciones
-            </span>
-            <div className="w-28 md:w-48 h-2.5 bg-verde-medio/50 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full progress-bar-animated rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              />
-            </div>
-          </div>
         </div>
+
+        {/* Secciones contador (solo desktop) */}
+        <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+          <span className="text-dorado-claro text-xs font-lato">
+            {visitedSections.length}/{totalSections} secciones
+          </span>
+        </div>
+      </div>
+
+      {/* Barra de progreso — franja inferior full width */}
+      <div className="relative h-2 bg-verde-medio/30">
+        <motion.div
+          className="absolute inset-y-0 left-0 progress-bar-animated"
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        />
+        {/* Contador móvil encima de la barra */}
+        <span className="md:hidden absolute right-3 -top-5 text-dorado-claro text-[10px] font-lato">
+          {visitedSections.length}/{totalSections}
+        </span>
       </div>
     </header>
   );
