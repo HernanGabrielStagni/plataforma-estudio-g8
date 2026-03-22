@@ -5,8 +5,9 @@ export default function Header({ visitedSections, totalSections = 7 }) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 header-premium shadow-2xl">
+      {/* Fila principal */}
       <div className="flex items-center justify-between px-4 md:px-8 py-4">
-        {/* Logo + Name */}
+        {/* Logo + Nombre */}
         <div className="flex items-center gap-4 flex-shrink-0">
           <div className="logo-glow-ring rounded-full flex-shrink-0">
             <img
@@ -25,7 +26,7 @@ export default function Header({ visitedSections, totalSections = 7 }) {
           </div>
         </div>
 
-        {/* Center Title */}
+        {/* Título centrado */}
         <div className="text-center flex-1 px-4">
           <h1
             className="text-white font-playfair text-base md:text-2xl lg:text-3xl font-black tracking-tight header-title-glow"
@@ -40,26 +41,35 @@ export default function Header({ visitedSections, totalSections = 7 }) {
           </h1>
         </div>
 
-        {/* Secciones contador (solo desktop) */}
-        <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+        {/* Progreso — solo desktop */}
+        <div className="hidden md:flex flex-col items-end gap-1.5 flex-shrink-0">
           <span className="text-dorado-claro text-xs font-lato">
             {visitedSections.length}/{totalSections} secciones
           </span>
+          <div className="w-36 h-2.5 bg-verde-medio/40 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full progress-bar-animated rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Barra de progreso — franja inferior full width */}
-      <div className="relative h-2 bg-verde-medio/30">
-        <motion.div
-          className="absolute inset-y-0 left-0 progress-bar-animated"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
-        {/* Contador móvil encima de la barra */}
-        <span className="md:hidden absolute right-3 -top-5 text-dorado-claro text-[10px] font-lato">
+      {/* Progreso — solo móvil, centrado y contenido */}
+      <div className="md:hidden flex items-center justify-center gap-3 pb-3">
+        <span className="text-dorado-claro text-[11px] font-lato">
           {visitedSections.length}/{totalSections}
         </span>
+        <div className="w-40 h-2 bg-verde-medio/40 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full progress-bar-animated rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          />
+        </div>
       </div>
     </header>
   );

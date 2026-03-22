@@ -85,6 +85,11 @@ export default function App() {
 
   const CurrentSectionComponent = sectionComponents[currentSection];
 
+  const validSectionIds = sections.map((s) => s.id);
+  const validVisitedSections = visitedSections.filter((s) =>
+    validSectionIds.includes(s)
+  );
+
   return (
     <div className="min-h-screen bg-blanco-calido texture-overlay">
       <AnimatePresence>
@@ -94,14 +99,14 @@ export default function App() {
       </AnimatePresence>
 
       <Header
-        visitedSections={visitedSections}
+        visitedSections={validVisitedSections}
         totalSections={sections.length}
       />
 
       <Sidebar
         currentSection={currentSection}
         onSectionChange={handleSectionChange}
-        visitedSections={visitedSections}
+        visitedSections={validVisitedSections}
         onToggleVisited={handleToggleVisited}
       />
 
